@@ -1,5 +1,6 @@
 package com.the.internet.herokuapp.BasicAuth;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -7,24 +8,28 @@ import org.testng.annotations.*;
 
 public class positiveTests {
 
-    public String baseUrl = "https://the-internet.herokuapp.com/basic_auth";
-    public WebDriver driver = new ChromeDriver();
+    private WebDriver driver = new ChromeDriver();
+    private String baseUrl = "the-internet.herokuapp.com/basic_auth";
+    private String username = "admin";
+    private String password = "admin";
 
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
-        driver.get(baseUrl);
+        driver.manage().window().maximize();
+        driver.get("https://" + username + ":" + password + "@" + baseUrl);
     }
 
-    @AfterTest
+    @AfterMethod
     public void closeUp() {
         driver.quit();
     }
 
     @Test
-    public void verifyPageLoads() {
-        String actualUrl = driver.getCurrentUrl();
-        Assert.assertEquals(actualUrl, baseUrl);
+    public void loginSuccess() {
+        String expectedMessage = "Congratulations! You must have the proper credentials.";
+        String loginMessage = driver.findElement(By.xpath("//*[@id=\"content\"]/div/p")).getText();
+        Assert.assertEquals(expectedMessage,loginMessage);
     }
 
 }
