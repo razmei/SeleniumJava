@@ -14,6 +14,7 @@ public class positiveTests {
     private WebDriver driver = new ChromeDriver();
 
     private String baseUrl = "https://demo.opencart.com/";
+    private String expectedTitle = "Your Store";
 
     @BeforeMethod
     public void setUp() {
@@ -28,8 +29,8 @@ public class positiveTests {
     @Test
     public void pageLoads() {
         driver.get(baseUrl);
-        String webPageTitle = driver.getTitle();
-        Assert.assertTrue(webPageTitle.contains("Your Store"));
+        String actualTitle = driver.getTitle();
+        Assert.assertTrue(actualTitle.contains(expectedTitle));
     }
 
 }
