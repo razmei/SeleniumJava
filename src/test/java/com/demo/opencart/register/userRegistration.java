@@ -67,11 +67,11 @@ public class userRegistration {
         driver.findElement(By.xpath(lastNameField)).sendKeys(lastName);
         driver.findElement(By.xpath(passwordField)).sendKeys(password);
         driver.findElement(By.xpath(emailField)).sendKeys(email);
+        driver.findElement(By.xpath(agreementButton)).sendKeys(" ");
+        driver.findElement(By.xpath(submitButton)).sendKeys(" ");
 
-        if (driver.findElement(By.xpath(submitButton)).isDisplayed()) {
-            driver.findElement(By.xpath(agreementButton)).sendKeys(" ");
-            driver.findElement(By.xpath(submitButton)).sendKeys(" ");
-        }
+        String actualUrl = driver.getCurrentUrl();
+        Assert.assertEquals(registerUrl, actualUrl);
     }
 
 
